@@ -1,0 +1,286 @@
+{
+  "info": {
+    "name": "SocialMedia Flask API",
+    "description": "Kolekcja API do testowania SocialMedia Flask API z będzie użycia w n8n",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 302) {",
+                  "    pm.environment.set('auth_token', pm.cookies.get('session'));",
+                  "    console.log('✓ Zalogowany pomyślnie');",
+                  "} else {",
+                  "    console.log('✗ Błąd logowania');",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "username",
+                  "value": "Admin",
+                  "type": "text"
+                },
+                {
+                  "key": "password",
+                  "value": "Admin",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://localhost:5000/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "login"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "API - Posts",
+      "item": [
+        {
+          "name": "Pobierz listę postów",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/posts",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "posts"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Pobierz szczegóły posta",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/posts/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "posts",
+                "1"
+              ]
+            },
+            "description": "Pobiera szczegóły konkretnego posta (zmień ID na istniejący)"
+          }
+        },
+        {
+          "name": "Wysłanie posta do n8n",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"platforms\": [\"instagram\", \"facebook\", \"youtube\"]\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/posts/1/send-to-n8n",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "posts",
+                "1",
+                "send-to-n8n"
+              ]
+            },
+            "description": "Wysyła post do n8n na wybrane platformy (zmień ID na istniejący)"
+          }
+        }
+      ]
+    },
+    {
+      "name": "API - Generation",
+      "item": [
+        {
+          "name": "Generowanie opisu",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"text\": \"Piękny zachód słońca nad miastem\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/generate-description",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "generate-description"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "API - Map",
+      "item": [
+        {
+          "name": "Upload screenshot mapy",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"screenshot\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==\",\n  \"lat\": \"52.237\",\n  \"lng\": \"21.022\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/upload-map-screenshot",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "upload-map-screenshot"
+              ]
+            },
+            "description": "Przesyła screenshot mapy (base64) na Dropbox"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Form - Wygeneruj Sociale",
+      "item": [
+        {
+          "name": "Wyślij post (Form-Data)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "description",
+                  "value": "Piękna fotografia z naszego podróży! 📸 #travel #photography #adventure",
+                  "type": "text"
+                },
+                {
+                  "key": "images",
+                  "type": "file",
+                  "src": []
+                },
+                {
+                  "key": "video",
+                  "type": "file",
+                  "src": []
+                },
+                {
+                  "key": "send_at",
+                  "value": "2026-02-16T15:30",
+                  "type": "text"
+                },
+                {
+                  "key": "location",
+                  "value": "52.237, 21.022",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://localhost:5000/wygeneruj-sociale",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "wygeneruj-sociale"
+              ]
+            },
+            "description": "Wysyła kompletny post ze zdjęciami, wideo i informacjami (wymaga login)"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Status Check",
+      "item": [
+        {
+          "name": "Podsumowanie Social Media",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/podsumowanie-socialmedia",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "podsumowanie-socialmedia"
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

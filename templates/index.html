@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SocialMedia Flask API</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/startbootstrap-sb-admin@7.0.6/dist/css/styles.min.css" rel="stylesheet">
+    <style>
+        .navbar-brand img { background-color: transparent; filter: brightness(0) invert(1); }
+    </style>
+</head>
+<body class="sb-nav-fixed">
+<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+    <a class="navbar-brand ps-3" href="/" style="display: flex; align-items: center; gap: 10px;">
+        <img src="/static/Logo.png" alt="Logo" style="height: 50px; width: auto;">
+    </a>
+    <ul class="navbar-nav ms-auto me-3">
+        <li class="nav-item text-white d-flex align-items-center">Zalogowany jako: <b class="ms-2">{{ username }}</b></li>
+        <li class="nav-item"><a href="/logout" class="btn btn-outline-danger btn-sm ms-3">Wyloguj</a></li>
+    </ul>
+</nav>
+<div id="layoutSidenav">
+    <div id="layoutSidenav_nav">
+        <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+            <div class="sb-sidenav-menu">
+                <div class="nav">
+                    <a class="nav-link active" href="/">
+                        <div class="sb-nav-link-icon"><i class="fas fa-home"></i></div>
+                        Strona główna
+                    </a>
+                    <a class="nav-link" href="/wygeneruj-sociale">
+                        <div class="sb-nav-link-icon"><i class="fas fa-share-alt"></i></div>
+                        Wygeneruj Sociale
+                    </a>
+                    <a class="nav-link" href="/podsumowanie-socialmedia">
+                        <div class="sb-nav-link-icon"><i class="fas fa-list-check"></i></div>
+                        Podsumowanie SocialMedia
+                    </a>
+                    <a class="nav-link" href="#">
+                        <div class="sb-nav-link-icon"><i class="fas fa-upload"></i></div>
+                        Upload pliku
+                    </a>
+                    <a class="nav-link" href="#">
+                        <div class="sb-nav-link-icon"><i class="fas fa-robot"></i></div>
+                        Generuj opis
+                    </a>
+                    <a class="nav-link" href="#">
+                        <div class="sb-nav-link-icon"><i class="fas fa-share"></i></div>
+                        Publikuj (n8n)
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid px-4 mt-4">
+                <h1 class="mt-4">Panel API</h1>
+                <ol class="breadcrumb mb-4">
+                    <li class="breadcrumb-item active">Instrukcja korzystania z API</li>
+                </ol>
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <ul class="list-group mb-3">
+                            <li class="list-group-item">POST <b>/upload</b> – upload pliku (multipart/form-data, pole: <b>file</b>)</li>
+                            <li class="list-group-item">POST <b>/generate-description</b> – generowanie opisu (JSON: {'text': 'Twój tekst'})</li>
+                            <li class="list-group-item">POST <b>/publish</b> – wysyłka danych do integracji (JSON)</li>
+                        </ul>
+                        <div class="alert alert-info mb-0">
+                            <i class="fa-solid fa-circle-info"></i> API gotowe do integracji z n8n, Instagram, Facebook, YouTube.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="py-4 bg-light mt-auto">
+            <div class="container-fluid px-4">
+                <div class="d-flex align-items-center justify-content-between small">
+                    <div class="text-muted">Copyright &copy; SocialMedia Flask API 2026</div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/startbootstrap-sb-admin@7.0.6/dist/js/scripts.min.js"></script>
+</body>
+</html>

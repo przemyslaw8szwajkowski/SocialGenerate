@@ -1,0 +1,6 @@
+Flask
+Werkzeug
+Flask-Login
+Flask-SQLAlchemy
+dropbox
+psycopg[binary]
