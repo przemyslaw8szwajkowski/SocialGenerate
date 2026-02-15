@@ -15,6 +15,7 @@ instance/
 # User generated or local files
 uploads/
 *.exe
+*.mp4
 
 # Environment variables
 .env

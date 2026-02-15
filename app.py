@@ -66,7 +66,7 @@ def load_user(user_id):
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    description = db.Column(db.String(500), nullable=False)
+    description = db.Column(db.String(2000), nullable=False)
     images = db.Column(db.Text)  # CSV paths
     video = db.Column(db.String(200))
     location = db.Column(db.String(300), nullable=True)  # współrzędne lub nazwa lokalizacji
@@ -81,6 +81,7 @@ with app.app_context():
     # Dostosowanie schematu dla PostgreSQL, jeśli tabela user powstała wcześniej z krótkim hasłem
     if db.engine.dialect.name == 'postgresql':
         db.session.execute(text('ALTER TABLE "user" ALTER COLUMN password TYPE VARCHAR(300)'))
+        db.session.execute(text('ALTER TABLE post ALTER COLUMN description TYPE VARCHAR(2000)'))
         db.session.commit()
 
     if not User.query.filter_by(username='Admin').first():
